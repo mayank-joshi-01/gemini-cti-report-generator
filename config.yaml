@@ -1,0 +1,73 @@
+# Configuration for the Automated CTI Report Generator
+
+# --- API Key Settings ---
+# The environment variable name where your Google AI API key is stored.
+# DO NOT hardcode your API key directly in this file.
+api_key_env_var: GOOGLE_API_KEY
+
+# --- Input Settings ---
+# Directory containing the analysis scripts (relative or absolute path).
+input:
+  directory: input_scripts
+  # File pattern to match script files within the input directory.
+  file_pattern: "*.txt"
+
+# --- Output Settings ---
+# Directory where the generated report files and diagram will be saved (relative or absolute path).
+output:
+  directory: output
+  # Base filename for the output reports (e.g., 'my_cti_report' will result in
+  # 'my_cti_report_part1.md', 'my_cti_report_part2.md', 'my_cti_report_diagram.md').
+  base_filename: xcsset_malware_report
+
+# --- Model Settings ---
+# Specify the Gemini model names to use.
+# 'report_model' is used for the detailed, multi-part report generation.
+# 'other_model' is used for the Mermaid diagram and the chat interface.
+# Using gemini-2.0-flash for potentially faster/cheaper generation.
+models:
+  report_model: gemini-2.0-flash
+  other_model: gemini-2.0-flash # Or another model like gemini-1.5-flash if preferred for chat/diagrams
+
+# --- Generation Configurations ---
+# Settings passed to the Gemini models for content generation.
+# Adjust 'temperature' for creativity (lower = more focused, higher = more varied).
+# Adjust 'max_output_tokens' based on the expected length of output.
+# Safety settings are defined below.
+generation_configs:
+  report_generation:
+    temperature: 0.3  # Lower for more factual/consistent reporting
+    top_p: 1.0
+    top_k: 32
+    max_output_tokens: 4096 # Max tokens per report part
+
+  other_generation:
+    temperature: 0.7  # Slightly higher for diagram/chat creativity
+    top_p: 1.0
+    top_k: 32
+    max_output_tokens: 2048 # Sufficient for diagram and chat responses
+
+# --- Safety Settings ---
+# Configure safety thresholds for content generation.
+# Refer to Gemini API documentation for categories and thresholds.
+safety_settings:
+  - category: HARM_CATEGORY_HARASSMENT
+    threshold: BLOCK_MEDIUM_AND_ABOVE
+  - category: HARM_CATEGORY_HATE_SPEECH
+    threshold: BLOCK_MEDIUM_AND_ABOVE
+  - category: HARM_CATEGORY_SEXUALLY_EXPLICIT
+    threshold: BLOCK_MEDIUM_AND_ABOVE
+  - category: HARM_CATEGORY_DANGEROUS_CONTENT
+    threshold: BLOCK_MEDIUM_AND_ABOVE # Added dangerous content
+
+# --- Report Specific Settings ---
+report_settings:
+  # Interval in seconds to wait between generating report part 1 and part 2.
+  interval_seconds: 60
+
+# --- Prompt File Paths ---
+# Paths to the text files containing the prompt templates (relative or absolute paths).
+prompts:
+  part1_file: prompts/part1_prompt.txt
+  part2_file: prompts/part2_prompt.txt
+  mermaid_file: prompts/mermaid_prompt.txt

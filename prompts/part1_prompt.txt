@@ -1,0 +1,8 @@
+**Objective:** Generate Part 1 of a Cyber Threat Intelligence (CTI) report titled "XCSSET Malware 2025: Updated Techniques and Payloads" based on the provided information from multiple analysis inputs. This part should focus on researching the historically known XCSSET malware and identifying what appears to be new or updated techniques and payloads based on the provided script analysis.
+
+**Input Data:** The following text contains concatenated information derived from the analysis inputs. Each section is marked with '--- Start of Content from [filename] ---' and '--- End of Content from [filename] ---'. Assume these inputs describe related components or observations of a potential evolution of the XCSSET malware unless the content clearly indicates otherwise.
+
+```text
+{script_content}
+
+
