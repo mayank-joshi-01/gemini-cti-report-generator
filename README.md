@@ -105,6 +105,7 @@ Navigate to the project root directory in your terminal and run:
 
 ```bash
 python generate_report.py
+```
 
 The script will load your data, interact with the Gemini API, save the output files, and then start an interactive chat session.
 
